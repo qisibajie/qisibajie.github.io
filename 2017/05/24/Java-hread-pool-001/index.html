@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://yoursite.com/images/java_001.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java_002.jpg">
 <meta property="og:image" content="http://yoursite.com/images/java_003.png">
-<meta property="og:updated_time" content="2017-05-24T14:11:30.173Z">
+<meta property="og:updated_time" content="2017-05-24T14:16:02.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程Thread,Runnable, Callable&lt;&gt;和线程池(一)">
 <meta name="twitter:description" content="这一篇主要关注于我们自己实现和管理多线程，后面会介绍使用线程池实现多线程。Java里面实现多线程有三种方式,继承 Thead类，或者实现Runnable和Callable&amp;lt;&amp;gt;接口。下面详细介绍一下这三种实现方式。 1. Thread实现多线程使用Thread实现，我们只需要继承Thread类，重写(overwirte)run方法。1234567891011121314151617181">
@@ -409,7 +409,7 @@
 <p>这里CallableImpl实现了Callable接口，实现了里面的call()方法，这个接口是泛型化的接口，接口的类型就是call()方法的返回值类型。下面是测试代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public class ConcurrentThread &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) throws InterruptedException, ExecutionException &#123;</div><div class="line"></div><div class="line">		long start = System.currentTimeMillis();</div><div class="line">		FutureTask&lt;String&gt; futureA = new FutureTask&lt;String&gt;(new CallableDemo(&quot;Thread-A&quot;, 5000));</div><div class="line">		Thread tA = new Thread(futureA);</div><div class="line">		tA.start();</div><div class="line">		System.out.println(&quot;Thread is Done: &quot; + futureA.isDone());</div><div class="line">		System.out.println(futureA.get());</div><div class="line">		System.out.println(&quot;Thread is Done: &quot; + futureA.isDone());</div><div class="line">		FutureTask&lt;String&gt; futureB = new FutureTask&lt;String&gt;(new CallableDemo(&quot;Thread-B&quot;, 400));</div><div class="line">		Thread tB = new Thread(futureB);</div><div class="line">		tB.start();</div><div class="line">		long end = System.currentTimeMillis();</div><div class="line">		System.out.println(&quot;During time: &quot; + (end - start));</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里也是实现了两个线程tA和tB,和上面Thread和Runnable的不同之处在于，这里使用futureA和futureB来获取两个线程的执行状态。futureA.isDone()。这两需要着重说的是futureA.get().这个方法的意思是：主线程等待tA执行完成。这个方法是会阻塞主线程的运行。下面是测试结果:<br><img src="/images/java_003.png" alt="这里写图片描述"><br>可以看到被标记的就是返回值，这是通过get()方法得到的，主线程会成tA执行完成之后，才会继续向下执行，而tB没有调用futureB.get(),所以tB没有阻塞主线程，和主线程是并发的。可以看到<strong>‘During time: 5003’</strong>在tB没有执行完成的时候已经被执行。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这篇主要介绍了自己实现多线程的三种方式:</p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>这篇主要介绍了自己实现多线程的三种方式:</p>
 <ol>
 <li>extends Thread,重写run()方法</li>
 <li>implements Runnable， 实现run()方法</li>
@@ -597,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Thread实现多线程"><span class="nav-number">1.</span> <span class="nav-text">1. Thread实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Runnable实现多线程"><span class="nav-number">2.</span> <span class="nav-text">2. Runnable实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Callable-lt-gt-实现多线程"><span class="nav-number">3.</span> <span class="nav-text">3. Callable<>实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Thread实现多线程"><span class="nav-number">1.</span> <span class="nav-text">1. Thread实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Runnable实现多线程"><span class="nav-number">2.</span> <span class="nav-text">2. Runnable实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Callable-lt-gt-实现多线程"><span class="nav-number">3.</span> <span class="nav-text">3. Callable<>实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-总结"><span class="nav-number">4.</span> <span class="nav-text">4. 总结</span></a></li></ol></div>
             
 
           </div>
