@@ -20,7 +20,8 @@
         <category>博客搭建</category>
       </categories>
       <tags>
-        <tag>Hexo，博客</tag>
+        <tag>Hexo</tag>
+        <tag>博客</tag>
       </tags>
   </entry>
   <entry>
@@ -31,7 +32,8 @@
         <category>日常小记</category>
       </categories>
       <tags>
-        <tag>心情，感悟</tag>
+        <tag>心情</tag>
+        <tag>感悟</tag>
       </tags>
   </entry>
 </search>
